@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Home · Markdown Blog{% endblock %}
+{% block content %}
+  <h1>Latest posts</h1>
+  <div class="grid">
+    {% for p in posts %}
+      <div class="card post-card">
+        <a href="{% url 'post_detail' slug=p.slug %}">
+          {% if p.hero_image %}
+            <img src="{% static p.hero_image %}" alt="{{ p.title }}">
+          {% else %}
+            <img src="{% static 'img/placeholder.jpg' %}" alt="{{ p.title }}">
+          {% endif %}
+        </a>
+        <div class="p">
+          <div class="muted">{{ p.date|date:"Y-m-d H:i" }}</div>
+          <h3 style="margin: .25rem 0;"><a href="{% url 'post_detail' slug=p.slug %}">{{ p.title }}</a></h3>
+          <p style="margin: .25rem 0 0;">{{ p.summary }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>No posts yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
