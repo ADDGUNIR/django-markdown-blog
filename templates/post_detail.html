@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ post.title }} · Unchaining Django{% endblock %}
+{% block content %}
+  <article>
+    <p class="muted">{{ post.date|date:"Y-m-d H:i" }}</p>
+    <h1>{{ post.title }}</h1>
+    {% if post.hero_image %}
+      <img src="{% static post.hero_image %}" alt="{{ post.title }}" style="margin:1rem 0;">
+    {% endif %}
+    <div>{{ post.content_html|safe }}</div>
+    <p><a href="/">&larr; Back to home</a></p>
+  </article>
+{% endblock %}
